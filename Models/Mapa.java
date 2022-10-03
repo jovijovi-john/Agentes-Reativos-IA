@@ -12,6 +12,7 @@ public class Mapa {
         this.colunas = 20;
 
         this.matriz = new int[20][20];
+
         preencherMatriz();
         generatePoints();
     }
@@ -39,7 +40,7 @@ public class Mapa {
                 int cordX = generator.nextInt(20);
                 int cordY = generator.nextInt(20);
 
-                if (this.matriz[cordX][cordX] == 0) {
+                if (this.matriz[cordX][cordX] == 0 && (cordX + cordY) != 0) {
                     this.matriz[cordX][cordY] = 10;
                     preenchido = true;
                 }
@@ -53,13 +54,11 @@ public class Mapa {
                 int cordX = generator.nextInt(20);
                 int cordY = generator.nextInt(20);
 
-                if (this.matriz[cordX][cordX] == 0) {
+                if (this.matriz[cordX][cordX] == 0 && (cordX + cordY) != 0) {
                     this.matriz[cordX][cordY] = 20;
                     preenchido = true;
                 }
             }
-
-            // preenchendo os vermelhos
         }
     }
 
