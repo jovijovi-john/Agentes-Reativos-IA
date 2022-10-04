@@ -1,14 +1,18 @@
 package Models;
 
-public class AgenteComModelos extends Agente{
+import java.util.ArrayList;
+
+public class AgenteComObjetivos extends Agente{
 
     private int ultimoX;
     private int ultimoY;
+    private ArrayList<Ponto> pontos;
 
-    public AgenteComModelos(Mapa mapa) {
+    public AgenteComObjetivos(Mapa mapa) {
         super(mapa);
         this.ultimoY = 0;
         this.ultimoX = 0;
+        this.pontos = new ArrayList<Ponto>();
     }
 
     @Override
@@ -20,14 +24,11 @@ public class AgenteComModelos extends Agente{
         } else {
             if (!hasItem()) {
                 goToPonto(this.ultimoX, this.ultimoY);
-                this.ultimoX = 0;
-                this.ultimoY = 0;
             }
         }
     }
 
     public void andarNormalmente(){
-        System.out.println("Andando normalmente. Agente na posição (" + this.x + ", " + this.y + ")");
         if (!hasItem()) {
             if (this.x % 2 == 0) {
                 if (this.y >= this.mapa.colunas - 1) {
@@ -43,7 +44,8 @@ public class AgenteComModelos extends Agente{
                 }
             }
         } else {
-            this.atuadores("pegar");
+            Ponto ponto = new Ponto(this.x, this.y);
+            this.pontos.add(ponto);
             this.atuadores("base");
         };
     }
@@ -55,7 +57,6 @@ public class AgenteComModelos extends Agente{
         this.score += mapa.matriz[x][y];
         mapa.matriz[x][y] = 0;
 
-        System.out.println("Estou no ponto (" + this.x + ", "+ this.y + ")");
         System.out.println("peguei");
         System.out.println("pontuacao: " + this.score);
 
@@ -68,15 +69,12 @@ public class AgenteComModelos extends Agente{
     private void goToPonto(int x, int y) {
 
         while (this.x != x) {
-            System.out.println("Indo para o ponto (" + x + ", " + y + "). Andar para baixo");
             this.irParaBaixo();
-            System.out.println("Agora estou no ponto (" + this.x + ", " + this.y + ")");
         }
 
         while (this.y != y) {
-            System.out.println("Indo para o ponto (" + x + ", " + y + "). Andar para direita");
+            System.out.println("Indo para direita");
             this.irParaDireita();
-            System.out.println("Agora estou no ponto (" + this.x + ", " + this.y + ")");
         }
     }
 

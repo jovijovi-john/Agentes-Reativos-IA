@@ -45,7 +45,8 @@ public class Agente implements AgenteGenerico {
 
   @Override
   public void atuadores(String acao) {
-    System.out.println("Atuadores: Posição do agente: " + x +  "," + y);
+//    System.out.println("Atuadores: Posição do agente: " + x +  "," + y);
+
     switch (acao) {
 
       case "base":
@@ -87,7 +88,6 @@ public class Agente implements AgenteGenerico {
   }
 
   public void irParaBaixo() {
-    System.out.println("baixo");
     if (this.x + 1 < this.mapa.linhas) {
       this.x += 1;
     }
@@ -118,14 +118,13 @@ public class Agente implements AgenteGenerico {
       System.out.println("Posição do agente: " + x +  "," + y);
       irParaCima();
     }
-
+    System.out.println("Posição do agente: " + x +  "," + y);
     this.hasItem = false;
   }
 
   public boolean hasItem() {
 
     if (mapa.matriz[x][y] > 0 && !this.hasItem) {
-      System.out.println("tem Item");
       return true;
     }
 
