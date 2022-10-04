@@ -10,8 +10,8 @@ public class Agente implements AgenteGenerico {
   public int score;
   public Mapa mapa;
 
-  private boolean hasItem;
-  private boolean finished;
+  protected boolean hasItem;
+  protected boolean finished;
 
   public Agente(Mapa mapa) {
     this.mapa = mapa;
@@ -45,7 +45,7 @@ public class Agente implements AgenteGenerico {
 
   @Override
   public void atuadores(String acao) {
-    System.out.println("Posição do agente: " + x +  "," + y);
+    System.out.println("Atuadores: Posição do agente: " + x +  "," + y);
     switch (acao) {
 
       case "base":
@@ -107,8 +107,9 @@ public class Agente implements AgenteGenerico {
 
   public void voltarParaBase() {
 
-    while (this.y != 0) {
+    System.out.println("Voltando para base");
 
+    while (this.y != 0) {
       System.out.println("Posição do agente: " + x +  "," + y);
       irParaEsquerda();
     }
@@ -117,11 +118,13 @@ public class Agente implements AgenteGenerico {
       System.out.println("Posição do agente: " + x +  "," + y);
       irParaCima();
     }
+
+    this.hasItem = false;
   }
 
   public boolean hasItem() {
 
-    if (mapa.matriz[x][y] > 0) {
+    if (mapa.matriz[x][y] > 0 && !this.hasItem) {
       System.out.println("tem Item");
       return true;
     }
@@ -139,8 +142,6 @@ public class Agente implements AgenteGenerico {
 
     System.out.println("peguei");
     System.out.println("pontuacao: " + this.score);
-
-
 
 
     mostraMapa();
