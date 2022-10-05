@@ -2,8 +2,8 @@ package Models;
 
 public class AgenteComModelos extends Agente{
 
-    private int ultimoX;
-    private int ultimoY;
+    protected int ultimoX;
+    protected int ultimoY;
 
     public AgenteComModelos(Mapa mapa) {
         super(mapa);
@@ -65,7 +65,7 @@ public class AgenteComModelos extends Agente{
         mostraMapa();
     }
 
-    private void goToPonto(int x, int y) {
+    protected void goToPonto(int x, int y) {
 
         while (this.x != x) {
             System.out.println("Indo para o ponto (" + x + ", " + y + "). Andar para baixo");

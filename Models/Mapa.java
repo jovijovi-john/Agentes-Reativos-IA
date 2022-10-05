@@ -6,10 +6,12 @@ public class Mapa {
     public int linhas;
     public int colunas;
     public int[][] matriz;
+    public int qntdPontos;
 
     public Mapa() {
         this.linhas = 20;
         this.colunas = 20;
+        this.qntdPontos = 10;
 
         this.matriz = new int[20][20];
 
@@ -19,7 +21,7 @@ public class Mapa {
 
     public void preencherMatriz() {
         for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 0; j++) {
+            for (int j = 0; j < 20; j++) {
                 this.matriz[i][j] = 0;
             }
         }

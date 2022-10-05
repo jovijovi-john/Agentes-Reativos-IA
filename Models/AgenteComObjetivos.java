@@ -1,12 +1,11 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class AgenteComObjetivos extends Agente{
+public class AgenteComObjetivos extends AgenteComModelos{
 
-    private int ultimoX;
-    private int ultimoY;
-    private ArrayList<Ponto> pontos;
+    protected ArrayList<Ponto> pontos;
 
     public AgenteComObjetivos(Mapa mapa) {
         super(mapa);
@@ -16,66 +15,54 @@ public class AgenteComObjetivos extends Agente{
     }
 
     @Override
-    public void funcaoDoAgente() throws InterruptedException {
-//    Thread.sleep(200);
-
-        if (this.ultimoY == 0 && this.ultimoX == 0) {
-            andarNormalmente();
-        } else {
-            if (!hasItem()) {
-                goToPonto(this.ultimoX, this.ultimoY);
-            }
+    public void funcaoDoAgente(){
+        int i = 0;
+        while (this.pontos.size() != this.mapa.qntdPontos) {
+            preencherArrayDePontos();
         }
+
+        atuadores("base");
+
+        for (Ponto ponto : this.pontos) {
+            goToPonto(ponto.x, ponto.y);
+
+            atuadores("pegar");
+            atuadores("base");
+        }
+
     }
 
-    public void andarNormalmente(){
+
+    public void preencherArrayDePontos(){
+        System.out.println("Andando normalmente. Agente na posição (" + this.x + ", " + this.y + ")");
         if (!hasItem()) {
-            if (this.x % 2 == 0) {
-                if (this.y >= this.mapa.colunas - 1) {
-                    this.atuadores("baixo");
-                } else {
-                    this.atuadores("direita");
-                }
-            } else {
-                if (y > 0) {
-                    this.atuadores("esquerda");
-                } else {
-                    this.atuadores("baixo");
-                }
-            }
+            andarNormalmente();
         } else {
-            Ponto ponto = new Ponto(this.x, this.y);
+            System.out.println("Achei um item na posição (" + this.x + ", " + this.y +  ")");
+
+            int pontuacao = this.mapa.matriz[this.x][this.y];
+            Ponto ponto = new Ponto(this.x, this.y, pontuacao);
             this.pontos.add(ponto);
-            this.atuadores("base");
+
+            andarNormalmente();
+            System.out.println("Ja tenho " + this.pontos.size() + " pontos");
         };
     }
 
     @Override
-    public void takeItem() {
-
-        this.hasItem = true;
-        this.score += mapa.matriz[x][y];
-        mapa.matriz[x][y] = 0;
-
-        System.out.println("peguei");
-        System.out.println("pontuacao: " + this.score);
-
-        this.ultimoX = this.x;
-        this.ultimoY = this.y;
-
-        mostraMapa();
-    }
-
-    private void goToPonto(int x, int y) {
-
-        while (this.x != x) {
-            this.irParaBaixo();
-        }
-
-        while (this.y != y) {
-            System.out.println("Indo para direita");
-            this.irParaDireita();
+    public void andarNormalmente(){
+        if (this.x % 2 == 0) {
+            if (this.y >= this.mapa.colunas - 1) {
+                this.atuadores("baixo");
+            } else {
+                this.atuadores("direita");
+            }
+        } else {
+            if (y > 0) {
+                this.atuadores("esquerda");
+            } else {
+                this.atuadores("baixo");
+            }
         }
     }
-
 }

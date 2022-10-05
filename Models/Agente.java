@@ -24,13 +24,18 @@ public class Agente implements AgenteGenerico {
 //    Thread.sleep(200);
 
     if (!hasItem()) {
+      // Se a linha for par
       if (this.x % 2 == 0) {
+        // Se está na borda
         if (this.y >= this.mapa.colunas - 1) {
           atuadores("baixo");
+        // Se não está na borda
         } else {
           atuadores("direita");
         }
+      // Se a linha for impar
       } else {
+
         if (y > 0) {
           atuadores("esquerda");
         } else {
